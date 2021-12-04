@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const NewEventModal = ({onSave, onClose}) => {
 
     const [title, setTitle] = useState('');
+    const [startTime, setStartTime] = useState('');
+    const [duration, setDuration] = useState('');
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        if (error) {
+            document.getElementById(`${error}Input`).focus();
+        }
+    }, [error]);
 
     return(
         <>
@@ -12,23 +20,43 @@ export const NewEventModal = ({onSave, onClose}) => {
             <div>
                 <label htmlFor="eventTitleInput">Describe the event:</label>
                 <input
-                    className={ error ? 'error' : '' }
+                    className={ error == 'title' ? 'error' : '' }
                     value={title}
                     onChange={ e => setTitle(e.target.value) }
-                    id="eventTitleInput"
+                    id="titleInput"
                     placeholder="Event Title"
                 />
+                <div>
+                    <label htmlFor="eventTimeInput">Choose the time:</label>
+                    <input 
+                    className={ error == 'startTime' ? 'error' : '' }
+                    value={startTime}
+                    onChange={ e => setStartTime(e.target.value) }
+                    id="startTimeInput" type="time" />
+                </div>
+                <div>
+                    <label htmlFor="eventDurationInput">Duration:</label>
+                    <input
+                    value={duration}
+                    onChange={ e => setDuration(e.target.value) }
+                    className={ error == 'duration' ? 'error' : '' }
+                    id="durationInput" type="time" />
+                </div>
             </div>
             <button
                 onClick = {
                     () => {
-                        if (title) {
-                            setError(false);
-                            onSave(title);
+                        if (!title) {
+                            setError('title');
+                        } else if (!startTime) {
+                            setError('startTime');
+                        } else if (!duration) {
+                            setError('duration');
                         } else {
-                            setError(true);
+                            setError(false);
+                            onSave({title, startTime, duration});
                         }
-                    }
+                    }   
                 }
                 id="saveButton">
                     Save

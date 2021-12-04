@@ -6,7 +6,7 @@ import { DeleteEventModal } from '../DeleteEventModal';
 import { useDate } from '../../Hooks/useDate';
 
 export const App = () => {
-    // nav saves current month, setNav changes current month
+    // nav saves distance from current month, setNav changes current month
     const [nav, setNav] = useState(0);
     const [clicked, setClicked] = useState();
     const [events, setEvents] = useState(
@@ -21,15 +21,17 @@ export const App = () => {
         localStorage.setItem('events', JSON.stringify(events));
     }, [events]);
 
-    const { days, dateDisplay } = useDate(events, nav);
+    const { days, dateDisplay, years, currentMonth, currentYear } = useDate(events, nav);
 
     return(
         <>
         <div id="container">
             <CalendarHeader
+                currentYear={currentYear}
+                currentMonth={currentMonth}
+                years={years}
                 dateDisplay={dateDisplay}
-                onNext={() => setNav(nav + 1)}
-                onBack={() => setNav(nav - 1)}
+                onBack={(ev)=>setNav(nav+ev)}
             />
 
             <div id="weekdays">
@@ -58,8 +60,8 @@ export const App = () => {
         {
             clicked && !eventForDate(clicked) &&
             <NewEventModal
-            onSave={(title) => {
-                setEvents([...events, { title, date: clicked }]);
+            onSave={(ev) => {
+                setEvents([...events, { title: ev.title, startTime: ev.startTime, duration: ev.duration, date: clicked }]);
                 setClicked(null);
             }}
             onClose={() => setClicked(null)}
@@ -68,7 +70,7 @@ export const App = () => {
         {
             clicked && eventForDate(clicked) &&
             <DeleteEventModal
-            eventText={eventForDate(clicked).title}
+            eventData={eventForDate(clicked)}
             onClose={() => setClicked(null)}
             onDelete={() => {
                 setEvents(events.filter(e => e.date !== clicked));
