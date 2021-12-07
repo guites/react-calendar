@@ -15,8 +15,12 @@ This is a study project.
 ### Checklist
 
 - [x] jump to desired month/year
-- [ ] add multiple events to the same day, prevent concurrent events from being added
 - [x] edit existing events
+- [ ] add multiple events to the same day, prevent concurrent events from being added
+    - [x] edit single events instead of the whole day
+    - [ ] delete single events instead of the whole day
+    - [ ] add multiple events to the same day making the NewEventModal component a subcomponent of ViewEventsModal
+    - [ ] prevent concurrent events from being added 
 - [ ] save event create/update timestamp
 - [ ] show all existing events in a list
 - [ ] mark past events as concluded/cancelled
