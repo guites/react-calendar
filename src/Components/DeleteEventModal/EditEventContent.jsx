@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 export const EditEventContent = ({eventData, isEdditing, onSave}) => {
 
-    const [title, setTitle] = useState(eventData.title);
-    const [startTime, setStartTime] = useState(eventData.startTime);
-    const [duration, setDuration] = useState(eventData.duration);
+    const [eventIndex] = useState(eventData.index);
+    const [title, setTitle] = useState(eventData.event.title);
+    const [startTime, setStartTime] = useState(eventData.event.startTime);
+    const [duration, setDuration] = useState(eventData.event.duration);
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -50,7 +51,7 @@ export const EditEventContent = ({eventData, isEdditing, onSave}) => {
                             setError('duration');
                         } else {
                             setError(false);
-                            onSave({title, startTime, duration});
+                            onSave({index: eventIndex, event: {title, startTime, duration}});
                         }
                     }   
                 }

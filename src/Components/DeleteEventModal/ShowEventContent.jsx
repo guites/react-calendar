@@ -7,7 +7,6 @@ const formatDate = (date) => {
     return day + '/' + month + '/' + year;
 }
 export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing}) => {
-    console.log(eventData);
     return (
         <>
         <h2>Events for {formatDate(eventData.date)}</h2>
@@ -16,14 +15,16 @@ export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing}) => 
                 <div className="single-event-info">
                     <time className="eventStartTime">starts at: {event.startTime}</time> / <span className="eventDuration">duration: {event.duration}</span>
                 </div>
-                
                 <p className="eventText">{event.title}</p>
+                <button data-index={index} className="icon-wrapper" id="editButton"
+                    onClick={(e) => {
+                        isEdditing(e.target.getAttribute('data-index'));
+                    }}
+                    ><img src="../../../../editar-small.png" className="edit-btn"></img>
+                </button>
             </div>
         ))}
         <button id="createButton">New</button>
-        <button id="editButton"
-        onClick={isEdditing}
-        >Edit</button>
         <button onClick={onDelete} id="deleteButton">Delete</button>
         <button onClick={onClose} id="closeButton">Close</button>
         </>

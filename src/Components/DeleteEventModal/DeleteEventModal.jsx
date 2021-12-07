@@ -4,16 +4,20 @@ import { ShowEventContent } from './ShowEventContent.jsx';
 
 export const DeleteEventModal = ({ onDelete, onEdit, eventData, onClose }) => {
     const [isEdditing, setIsEdditing] = useState(false);
+    const [currentEvent, setCurrentEvent] = useState(false);
     return(
         <>
         <div id="deleteEventModal">
             {
                 isEdditing &&
                 <EditEventContent
-                eventData={eventData}
-                isEdditing={() => {setIsEdditing(!isEdditing)}}
+                eventData={currentEvent}
+                isEdditing={() => {
+                    setIsEdditing(!isEdditing)
+                }}
                 onSave={(ev) => {
-                    onEdit(ev);
+                    eventData.events.splice(ev.index, 1, ev.event);
+                    onEdit(eventData);
                 }}
                 />
             }
@@ -22,7 +26,10 @@ export const DeleteEventModal = ({ onDelete, onEdit, eventData, onClose }) => {
                 <ShowEventContent
                 eventData={eventData}
                 onClose={onClose}
-                isEdditing={() => {setIsEdditing(!isEdditing)}}
+                isEdditing={(index) => {
+                    setCurrentEvent({ index: index, event: eventData.events[index]});
+                    setIsEdditing(!isEdditing)
+                }}
                 />
             }
         </div>

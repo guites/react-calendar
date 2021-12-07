@@ -138,6 +138,7 @@ body {
     padding-left: 15px;
     border-bottom: 1px solid #979fa4;
     margin-bottom: 15px;    
+    position: relative;
   }
   .eventText, .eventStartTime, .eventDuration {
     font-size: 14px;
@@ -168,5 +169,16 @@ body {
     outline: none;
     border: none;
     box-shadow: 0px 0px 3px gray;
+  }
+  .edit-btn {
+    width: 20px;
+    height: auto;
+    pointer-events: none;
+  }
+  .icon-wrapper {
+    width: 33px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
   
