@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const Day = ({day, onClick}) => {
+    console.log(day);
     const className = `day ${day.value === 'padding' ? 'padding' : ''} ${day.isCurrentDay ? 'currentDay' : ''}`;
     return(
         <div onClick={onClick} className={className}>

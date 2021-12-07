@@ -61,8 +61,16 @@ export const App = () => {
             clicked && !eventForDate(clicked) &&
             <NewEventModal
             onSave={(ev) => {
-                setEvents([...events, { title: ev.title, startTime: ev.startTime, duration: ev.duration, date: clicked }]);
-                setClicked(null);
+                const event = eventForDate(clicked);
+                if (!event) {
+                    setEvents([...events,
+                        {
+                            date: clicked,
+                            events: [{ title: ev.title, startTime: ev.startTime, duration: ev.duration }]
+                        }
+                    ]);
+                    setClicked(null);
+                }
             }}
             onClose={() => setClicked(null)}
             />

@@ -130,8 +130,20 @@ body {
   #editButton {
     background-color: rgb(202,202,209);
   }
-  #eventText, #eventStartTime, #eventDuration {
+  #createButton {
+    background-color: #222;
+  }
+  .single-event {
+    border-left: 5px solid #979fa4;
+    padding-left: 15px;
+    border-bottom: 1px solid #979fa4;
+    margin-bottom: 15px;    
+  }
+  .eventText, .eventStartTime, .eventDuration {
     font-size: 14px;
+  }
+  .eventText {
+    padding-left: 10px;
   }
   #modalBackDrop {
     top: 0px;
