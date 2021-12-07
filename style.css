@@ -127,6 +127,9 @@ body {
   #saveButton, #closeButton {
     background-color: #92a1d1;
   }
+  #editButton {
+    background-color: rgb(202,202,209);
+  }
   #eventText, #eventStartTime, #eventDuration {
     font-size: 14px;
   }

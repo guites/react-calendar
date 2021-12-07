@@ -70,7 +70,15 @@ export const App = () => {
         {
             clicked && eventForDate(clicked) &&
             <DeleteEventModal
+
             eventData={eventForDate(clicked)}
+            onEdit={(ev)=> {
+                const filtered = events.filter(e => e.date !== clicked);
+                ev.date = clicked;
+                filtered.push(ev);
+                setEvents(filtered);
+                setClicked(null);
+            }}
             onClose={() => setClicked(null)}
             onDelete={() => {
                 setEvents(events.filter(e => e.date !== clicked));

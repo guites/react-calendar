@@ -16,7 +16,7 @@ This is a study project.
 
 - [x] jump to desired month/year
 - [ ] add multiple events to the same day, prevent concurrent events from being added
-- [ ] edit existing events
+- [x] edit existing events
 - [ ] save event create/update timestamp
 - [ ] show all existing events in a list
 - [ ] mark past events as concluded/cancelled
