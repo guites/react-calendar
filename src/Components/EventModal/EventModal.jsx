@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { EditEventContent } from './EditEventContent.jsx';
-import { ShowEventContent } from './ShowEventContent.jsx';
+import { EditEventContent } from './modalComponents/EditEventContent.jsx';
+import { ShowEventContent } from './modalComponents/ShowEventContent.jsx';
+import { NewEventContent } from './modalComponents/NewEventContent.jsx';
 
-export const DeleteEventModal = ({ onDelete, onEdit, eventData, onClose }) => {
+export const EventModal = ({ onSave, onDelete, onEdit, eventData, onClose, clickedDay }) => {
     const [isEdditing, setIsEdditing] = useState(false);
     const [currentEvent, setCurrentEvent] = useState(false);
+    const [isAdding, setIsAdding] = useState(false);
+    const [event] = useState(eventData ? eventData : {date: clickedDay, events: []});
     return(
         <>
         <div id="deleteEventModal">
             {
                 isEdditing &&
+                !isAdding &&
                 <EditEventContent
                 eventData={currentEvent}
                 isEdditing={() => {
@@ -23,6 +27,8 @@ export const DeleteEventModal = ({ onDelete, onEdit, eventData, onClose }) => {
             }
             {
                 !isEdditing &&
+                !isAdding &&
+                event.events.length > 0 &&
                 <ShowEventContent
                 eventData={eventData}
                 onClose={onClose}
@@ -33,7 +39,18 @@ export const DeleteEventModal = ({ onDelete, onEdit, eventData, onClose }) => {
                 onDelete={(index) => {
                     onDelete(index);
                 }}
+                openSaveModal={() => setIsAdding(true)}
                 />
+            }
+            {
+                !isEdditing &&
+                (event.events.length == 0 ||
+                isAdding) &&
+                <NewEventContent
+                clickedDay={clickedDay}
+                onClose={onClose}
+                onSave={(ev)=>{onSave(ev)}}
+                /> 
             }
         </div>
         <div id="modalBackDrop"></div>

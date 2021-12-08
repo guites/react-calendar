@@ -6,7 +6,7 @@ const formatDate = (date) => {
     const year = dateObject.getFullYear();
     return day + '/' + month + '/' + year;
 }
-export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing}) => {
+export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing, openSaveModal}) => {
     return (
         <>
         <h2>Events for {formatDate(eventData.date)}</h2>
@@ -30,7 +30,7 @@ export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing}) => 
                 </button>
             </div>
         ))}
-        <button id="createButton">New</button>
+        <button onClick={openSaveModal} id="createButton">New</button>
         <button onClick={onClose} id="closeButton">Close</button>
         </>
     );

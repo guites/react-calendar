@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CalendarHeader } from '../CalendarHeader';
 import { Day } from '../Day';
 import { NewEventModal } from '../NewEventModal';
-import { DeleteEventModal } from '../DeleteEventModal';
+import { EventModal } from '../EventModal';
 import { useDate } from '../../Hooks/useDate';
 
 export const App = () => {
@@ -58,26 +58,9 @@ export const App = () => {
             </div>
         </div>
         {
-            clicked && !eventForDate(clicked) &&
-            <NewEventModal
-            onSave={(ev) => {
-                const event = eventForDate(clicked);
-                if (!event) {
-                    setEvents([...events,
-                        {
-                            date: clicked,
-                            events: [{ title: ev.title, startTime: ev.startTime, duration: ev.duration }]
-                        }
-                    ]);
-                    setClicked(null);
-                }
-            }}
-            onClose={() => setClicked(null)}
-            />
-        }
-        {
-            clicked && eventForDate(clicked) &&
-            <DeleteEventModal
+            clicked &&
+            <EventModal
+            clickedDay={clicked}
             eventData={eventForDate(clicked)}
             onEdit={(ev)=> {
                 const filtered = events.filter(e => e.date !== clicked);
@@ -94,6 +77,24 @@ export const App = () => {
                 clickdDateObject.events.splice(index, 1);
                 filtered.push(clickdDateObject);
                 setEvents(filtered);
+                setClicked(null);
+            }}
+            onSave={(ev) => {
+                const event = eventForDate(clicked);
+                if (!event) {
+                    setEvents([...events,
+                        {
+                            date: clicked,
+                            events: [{ title: ev.title, startTime: ev.startTime, duration: ev.duration }]
+                        }
+                    ]);
+                } else {
+                    const currentDayObject = events.find(e => e.date === clicked);
+                    currentDayObject.events.push(ev);
+                    const filtered = events.filter(e => e.date !== clicked);
+                    filtered.push(currentDayObject);
+                    setEvents(filtered);
+                }
                 setClicked(null);
             }}
             onClose={() => setClicked(null)}
