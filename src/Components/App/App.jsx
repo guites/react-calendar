@@ -78,7 +78,6 @@ export const App = () => {
         {
             clicked && eventForDate(clicked) &&
             <DeleteEventModal
-
             eventData={eventForDate(clicked)}
             onEdit={(ev)=> {
                 const filtered = events.filter(e => e.date !== clicked);
@@ -88,8 +87,13 @@ export const App = () => {
                 setClicked(null);
             }}
             onClose={() => setClicked(null)}
-            onDelete={() => {
-                setEvents(events.filter(e => e.date !== clicked));
+            onDelete={(index) => {
+                // could not do it without using two loop functions, if I splice the value directly from events array it updates on the current session but not on localStorage
+                const clickdDateObject = events.find(e => e.date === clicked);
+                const filtered = events.filter(e => e.date !== clicked);
+                clickdDateObject.events.splice(index, 1);
+                filtered.push(clickdDateObject);
+                setEvents(filtered);
                 setClicked(null);
             }}
             onClose={() => setClicked(null)}

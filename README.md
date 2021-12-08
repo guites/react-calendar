@@ -18,7 +18,7 @@ This is a study project.
 - [x] edit existing events
 - [ ] add multiple events to the same day, prevent concurrent events from being added
     - [x] edit single events instead of the whole day
-    - [ ] delete single events instead of the whole day
+    - [x] delete single events instead of the whole day
     - [ ] add multiple events to the same day making the NewEventModal component a subcomponent of ViewEventsModal
     - [ ] prevent concurrent events from being added 
 - [ ] save event create/update timestamp

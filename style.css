@@ -181,4 +181,7 @@ body {
     right: 0;
     top: 0;
   }
+  .icon-wrapper:nth-child(4) {
+    right: 45px;
+  }
   

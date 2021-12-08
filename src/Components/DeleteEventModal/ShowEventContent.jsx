@@ -16,6 +16,12 @@ export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing}) => 
                     <time className="eventStartTime">starts at: {event.startTime}</time> / <span className="eventDuration">duration: {event.duration}</span>
                 </div>
                 <p className="eventText">{event.title}</p>
+                <button data-index={index} className="icon-wrapper" id="deleteButton"
+                    onClick={(e) => {
+                        onDelete(e.target.getAttribute('data-index'));
+                    }}
+                    ><img src="../../../../deletar-lixeira-small.png" className="edit-btn"></img>
+                </button>
                 <button data-index={index} className="icon-wrapper" id="editButton"
                     onClick={(e) => {
                         isEdditing(e.target.getAttribute('data-index'));
@@ -25,7 +31,6 @@ export const ShowEventContent = ({eventData, onClose, onDelete, isEdditing}) => 
             </div>
         ))}
         <button id="createButton">New</button>
-        <button onClick={onDelete} id="deleteButton">Delete</button>
         <button onClick={onClose} id="closeButton">Close</button>
         </>
     );

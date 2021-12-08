@@ -30,6 +30,9 @@ export const DeleteEventModal = ({ onDelete, onEdit, eventData, onClose }) => {
                     setCurrentEvent({ index: index, event: eventData.events[index]});
                     setIsEdditing(!isEdditing)
                 }}
+                onDelete={(index) => {
+                    onDelete(index);
+                }}
                 />
             }
         </div>
